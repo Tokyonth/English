@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.Dialogue">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/talk_dynamic"/>
+
+    <com.tokyonth.english.widget.BubbleLayout
+        android:id="@+id/tv_qu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="0dp"
+        android:padding="16dp"
+        app:background_color="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:offset="50dp"
+        app:radius="4dp"
+        app:shadow_color="#999999">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!  Hello World!"
+            android:textColor="#ffffff" />
+
+    </com.tokyonth.english.widget.BubbleLayout>
+
+    <com.tokyonth.english.widget.BubbleLayout
+        android:id="@+id/tv_an"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_qu"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:padding="16dp"
+        app:background_color="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:offset="0dp"
+        app:direction="left"
+        app:radius="4dp"
+        app:shadow_color="#999999">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!  Hello World!"
+            android:textColor="#ffffff" />
+
+    </com.tokyonth.english.widget.BubbleLayout>
+
+</RelativeLayout>
