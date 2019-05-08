@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.iflytek.cloud.SpeechSynthesizer;
+
 public class BaseActivity extends AppCompatActivity {
 
     private Toast mToast;
+    private SpeechSynthesizer mTts;
 
     protected void showTip(final String str){
         runOnUiThread(new Runnable() {
@@ -62,6 +65,16 @@ public class BaseActivity extends AppCompatActivity {
 
         }
         mToast = Toast.makeText(this,"",Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if( null != mTts ){
+            mTts.stopSpeaking();
+            // 退出时释放连接
+            mTts.destroy();
+        }
     }
 
 }

@@ -13,7 +13,6 @@ import com.tokyonth.english.R;
 import com.tokyonth.english.ui.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +27,9 @@ public class WordClass extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.vp)
     public ViewPager vp;
 
-    private View BasicsCard;
-    private View LifeCard;
-    private View ScienceCard;
+    private View BasicsView;
+    private View LifeView;
+    private View ScienceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +46,20 @@ public class WordClass extends BaseActivity implements View.OnClickListener {
         viewIds.add(R.id.organ_card);
         viewIds.add(R.id.animal_card);
         viewIds.add(R.id.color_card);
-        setViewClickListener(viewIds, BasicsCard);
+        setViewClickListener(viewIds, BasicsView);
 
         ArrayList<Integer> viewIds0 = new ArrayList<>();
         viewIds0.add(R.id.vehicle_card);
         viewIds0.add(R.id.fruits_card);
         viewIds0.add(R.id.vegetables_card);
         viewIds0.add(R.id.weather_card);
-        setViewClickListener(viewIds0, LifeCard);
+        setViewClickListener(viewIds0, LifeView);
 
         ArrayList<Integer> viewIds1 = new ArrayList<>();
         viewIds1.add(R.id.chemistry_card);
         viewIds1.add(R.id.physics_card);
         viewIds1.add(R.id.biology_card);
-        setViewClickListener(viewIds1, ScienceCard);
+        setViewClickListener(viewIds1, ScienceView);
     }
 
     public void setViewClickListener(ArrayList<Integer> viewIds, View rootView) {
@@ -71,13 +70,13 @@ public class WordClass extends BaseActivity implements View.OnClickListener {
 
     private void setVP() {
         LayoutInflater inflater = getLayoutInflater();
-        LifeCard = inflater.inflate(R.layout.life_card,null);
-        BasicsCard = inflater.inflate(R.layout.basics_card, null);
-        ScienceCard = inflater.inflate(R.layout.science_card, null);
+        LifeView = inflater.inflate(R.layout.life_card,null);
+        BasicsView = inflater.inflate(R.layout.basics_card, null);
+        ScienceView = inflater.inflate(R.layout.science_card, null);
         ArrayList<View> listView = new ArrayList<>();
-        listView.add(BasicsCard);
-        listView.add(LifeCard);
-        listView.add(ScienceCard);
+        listView.add(BasicsView);
+        listView.add(LifeView);
+        listView.add(ScienceView);
         CardPageAdapter cardPageAdapter = new CardPageAdapter(this, listView);
         vp.setPageTransformer(false,new ZoomOutPageTransformer());
         vp.setAdapter(cardPageAdapter);

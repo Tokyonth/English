@@ -5,10 +5,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tokyonth.english.pic.ImageTool;
 import com.tokyonth.english.utils.CopyAssetsFile;
 import com.tokyonth.english.utils.UnZipFile;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +48,38 @@ public class LoadActivity extends BaseActivity {
             }
         }, 1500);
 
+        /*new Thread() {
+            @Override
+            public void run() {
+                String[] str_zh = {"苹果","婴儿","狗","妈妈","火车","老师"};
+                ImageTool imageTool = new ImageTool();
+                ArrayList<String> list;
+                list = imageTool.GetImageList(str_zh);
+
+                for (int i = 0; i < list.size() ; i++) {
+                           System.out.println("打印" + list.get(i));
+                     }
+
+                Message msg = Message.obtain();
+                //msg.obj = list;
+                msg.what = 2;
+                handler.sendMessage(msg);
+            }
+        }.start();*/
+
     }
+
+    /*Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 2:
+                    System.out.print(msg.obj);
+                    Toast.makeText(LoadActivity.this,"爬虫完成",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };*/
 
     private String getVersionName() throws Exception {
         // 获取PackageManager的实例

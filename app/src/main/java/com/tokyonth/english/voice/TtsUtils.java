@@ -17,7 +17,7 @@ import com.iflytek.cloud.util.ResourceUtil.RESOURCE_TYPE;
 import com.tokyonth.english.R;
 import com.tokyonth.english.speech.setting.TtsSettings;
 
-public class TtsUtils /*extends BaseActivity implements OnClickListener */{
+public class TtsUtils {
 
 	// 语音合成对象
 	private SpeechSynthesizer mTts;
@@ -40,20 +40,6 @@ public class TtsUtils /*extends BaseActivity implements OnClickListener */{
 	//private static int selectedNumLocal = 0;
 
 	private Context context;
-
-	/*@SuppressLint("ShowToast")
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ttsdemo);
-		GetPermissions();
-		initLayout();
-		// 初始化合成对象
-		mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-		// 云端发音人名称列表
-		cloudVoicersEntries = getResources().getStringArray(R.array.voicer_cloud_entries);
-		cloudVoicersValue = getResources().getStringArray(R.array.voicer_cloud_values);
-		mSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, Activity.MODE_PRIVATE);
-	}*/
 
 	public TtsUtils(Context context) {
 		this.context = context;

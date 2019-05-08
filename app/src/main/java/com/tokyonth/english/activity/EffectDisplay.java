@@ -17,21 +17,21 @@ import com.tokyonth.english.ui.CartoonTextView;
 import com.tokyonth.english.voice.TtsUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.tokyonth.english.base.SourcesConf.imgUrls;
-import static com.tokyonth.english.base.SourcesConf.str_zh;
+import static com.tokyonth.english.source.SourcesConf.WordForZh;
 
 public class EffectDisplay extends BaseActivity {
 
     @BindView(R.id.music_en)
-    public CartoonTextView music_en;
+    public CartoonTextView tv_en;
     @BindView(R.id.music_zh)
-    public CartoonTextView music_zh;
+    public CartoonTextView tv_zh;
     @BindView(R.id.btn_l)
     public Button btn_l;
     @BindView(R.id.btn_r)
@@ -39,13 +39,15 @@ public class EffectDisplay extends BaseActivity {
     @BindView(R.id.vp)
     public ViewPager vp;
 
-    private List<String> text_zh = new ArrayList<>();
+    private List<String> text_zh_list = new ArrayList<>();
+    private Handler handler = new Handler();
 
     private int VpCurrentItem;
-    private Handler handler = new Handler();
-    private String zh;
-    private String en;
+    private String zh_text;
+    private String en_text;
     private TtsUtils tts;
+    private String[] image_url;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class EffectDisplay extends BaseActivity {
         setContentView(R.layout.exhibition_word);
         ButterKnife.bind(this);
         VpCurrentItem = getIntent().getIntExtra("id",0);
+        image_url = getIntent().getStringArrayExtra("image_url");
+        name = getIntent().getStringExtra("name");
         tts = new TtsUtils(this);
         setVp();
     }
@@ -71,16 +75,16 @@ public class EffectDisplay extends BaseActivity {
 
     @OnClick(R.id.music_en)
     public void Music_en() {
-        en = music_en.getText().toString().trim();
-        tts.TtsPlay(en);
-        ////英文资源
+        en_text = tv_en.getText().toString().trim();
+        tts.TtsPlay(en_text);
+        //英文资源
         //String s = WordsStrings.musicPath("");
        // MediaManager.playSound(s, null);
     }
 
     @OnClick(R.id.music_zh)
     public void Music_zh() {
-        tts.TtsPlay(zh);
+        tts.TtsPlay(zh_text);
       //  String s = WordsStrings.musicPath(zh);
        // MediaManager.playSound(s, null);
     }
@@ -100,7 +104,7 @@ public class EffectDisplay extends BaseActivity {
                     @Override
                     public void run() {
                         for (TranslateResult.TransResultBean s : trans_result) {
-                            music_en.setText(s.getDst());
+                            tv_en.setText(s.getDst());
                             //填充翻译内容
                         }
                     }
@@ -110,28 +114,24 @@ public class EffectDisplay extends BaseActivity {
     }
 
     private void setVp() {
-        //int index = 0;
-        for (String str : str_zh) {
-            //image_path.add(i);
-            text_zh.add(str);
-        }
+        Collections.addAll(text_zh_list, WordForZh(name));
 
         SimpleOverlayAdapter adapter = new SimpleOverlayAdapter(this);
-        adapter.setImgUrlsAndBindViewPager(vp, imgUrls, 3); //3为卡片叠层可是层
+        adapter.setImgUrlsAndBindViewPager(vp, image_url, 3); //3为卡片叠层可是层
         vp.setAdapter(adapter);
         vp.setCurrentItem(VpCurrentItem);
 
-        music_zh.setText(zh = text_zh.get(VpCurrentItem));
+        tv_zh.setText(zh_text = text_zh_list.get(VpCurrentItem));
         //通过百度翻译中文填充 英文单词
-        TranslateForZh(zh);
+        //此处在线程中处理en_text
+        TranslateForZh(zh_text);
 
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                // Log.d("长度",String.valueOf(img.length));
                // Log.d("滑动",String.valueOf(position));
-                if (position == imgUrls.length - 1) {
+                if (position == image_url.length - 1) {
                     btn_r.setVisibility(View.INVISIBLE);
                 } else if (position == 0) {
                     btn_l.setVisibility(View.INVISIBLE);
@@ -143,9 +143,9 @@ public class EffectDisplay extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                music_zh.setText(zh = text_zh.get(position));
+                tv_zh.setText(zh_text = text_zh_list.get(position));
                 //通过百度翻译中文填充 英文单词
-                TranslateForZh(zh);
+                TranslateForZh(zh_text);
             }
 
             @Override

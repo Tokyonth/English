@@ -10,7 +10,6 @@ import android.view.Window;
 import com.tokyonth.english.R;
 import com.tokyonth.english.speech.util.SettingTextWatcher;
 
-
 /**
  * 合成设置界面
  */

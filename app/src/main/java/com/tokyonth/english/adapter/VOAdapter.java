@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.tokyonth.english.model.ItemVO;
 import com.tokyonth.english.R;
 import com.tokyonth.english.ui.CartoonTextView;
-import com.tokyonth.english.ui.NetImageView;
 
 import java.util.List;
 
@@ -39,6 +38,7 @@ public class VOAdapter extends RecyclerView.Adapter<VOAdapter.ViewHolder> implem
         holder.text.setText(vo.getmName());
         //holder.img.setImageURL(vo.getmImg());
        // holder.img.setImageResource(vo.getmImg());
+        //改用Glide加载图像
         Glide.with(context).load(vo.getmImg()).into(holder.img);
         if(mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
